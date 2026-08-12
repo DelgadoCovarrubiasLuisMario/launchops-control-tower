@@ -70,7 +70,7 @@ export function DeploymentsView() {
             <p className="text-sm text-cyan-200">Release engineering</p>
             <h2 className="text-3xl font-black text-white">Deployment control</h2>
             <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-400">
-              Queue deploys, track status changes and demonstrate safe operational workflows with audit visibility.
+              Queue deploys, track status changes and keep audit-visible release workflows.
             </p>
             {!canMutate ? (
               <p className="mt-3 text-sm text-amber-200">Viewer role: read-only. Ask an admin or engineer to mutate deployments.</p>

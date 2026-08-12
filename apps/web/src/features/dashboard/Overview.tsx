@@ -43,7 +43,7 @@ export function Overview({ data, pulse, connected }: OverviewProps) {
               Deployment, incident and flag telemetry in one operator surface.
             </h2>
             <p className="mt-3 max-w-2xl text-sm leading-6 text-[var(--lo-muted)]">
-              Dense layout on purpose: color is reserved for status, not decoration. RBAC, audit trails and org-scoped APIs stay in the same console.
+              Track deployments, incidents and feature flags with RBAC, audit trails and org-scoped APIs in one console.
             </p>
           </div>
           <motion.div

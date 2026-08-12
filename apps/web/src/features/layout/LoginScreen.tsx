@@ -37,7 +37,7 @@ export function LoginScreen() {
           <p className="lo-mono text-[0.7rem] uppercase tracking-[0.18em] text-[var(--lo-muted)]">Industrial ops console</p>
           <h1 className="mt-3 text-3xl font-semibold tracking-tight sm:text-5xl">LaunchOps Control Tower</h1>
           <p className="mt-5 max-w-xl text-sm leading-7 text-[var(--lo-muted)] sm:text-base">
-            I built this as a high-density operations surface: deployments, incidents, flags and audit events with JWT roles and org scoping — designed to read like a plant console, not a marketing site.
+            High-density operations surface for deployments, incidents, flags and audit events — with JWT roles and org scoping.
           </p>
           <dl className="mt-8 grid gap-3 sm:grid-cols-3">
             {[
@@ -60,7 +60,7 @@ export function LoginScreen() {
             </div>
             <div>
               <h2 className="text-xl font-semibold">Operator sign-in</h2>
-              <p className="text-sm text-[var(--lo-muted)]">Use a seeded demo account.</p>
+              <p className="text-sm text-[var(--lo-muted)]">Enter your account credentials.</p>
             </div>
           </div>
 
@@ -78,7 +78,7 @@ export function LoginScreen() {
           </form>
 
           <p className="lo-mono mt-5 text-[0.7rem] uppercase tracking-[0.08em] text-[var(--lo-muted)]">
-            Demo password: {DEMO_PASSWORD}
+            Quick fill
           </p>
           <div className="mt-3 grid gap-2">
             {[
@@ -100,11 +100,6 @@ export function LoginScreen() {
               </button>
             ))}
           </div>
-          {import.meta.env.VITE_USE_DEMO === 'true' ? (
-            <p className="mt-4 border border-[var(--lo-info)] bg-[#eff8ff] p-3 text-xs text-[var(--lo-info)]">
-              Public demo mode is on — sample data runs in the browser without a live API.
-            </p>
-          ) : null}
         </Card>
       </div>
     </div>
