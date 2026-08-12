@@ -3,16 +3,16 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 const variants = {
-  primary: 'bg-cyan-400 text-slate-950 hover:bg-cyan-300',
-  ghost: 'border border-slate-700 bg-slate-900/60 text-slate-200 hover:bg-slate-800',
-  danger: 'bg-rose-500 text-white hover:bg-rose-400'
+  primary: 'border border-[var(--lo-ink)] bg-[var(--lo-ink)] text-[var(--lo-panel-2)] hover:bg-[#2a3140]',
+  ghost: 'border border-[var(--lo-line)] bg-[var(--lo-panel-2)] text-[var(--lo-ink)] hover:border-[var(--lo-ink)]',
+  danger: 'border border-[var(--lo-danger)] bg-[var(--lo-danger)] text-white hover:brightness-95'
 };
 
 export function Button({ className = '', variant = 'primary', ...props }: ButtonProps) {
   return (
     <button
       {...props}
-      className={`inline-flex items-center justify-center gap-2 rounded-2xl px-4 py-2 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-50 ${variants[variant]} ${className}`}
+      className={`lo-mono inline-flex items-center justify-center gap-2 rounded-none px-3 py-2 text-xs font-semibold uppercase tracking-[0.08em] transition disabled:cursor-not-allowed disabled:opacity-50 ${variants[variant]} ${className}`}
     />
   );
 }

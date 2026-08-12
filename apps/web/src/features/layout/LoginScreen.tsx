@@ -28,42 +28,59 @@ export function LoginScreen() {
   const onSubmit = (values: LoginForm) => loginMutation.mutate(values);
 
   return (
-    <div className="grid min-h-screen place-items-center p-4">
-      <div className="grid w-full max-w-6xl gap-6 lg:grid-cols-[1fr_420px] lg:items-center">
-        <div className="glass-panel rounded-[2rem] p-8 md:p-12">
-          <div className="mb-8 grid size-16 place-items-center rounded-3xl bg-cyan-400 text-slate-950">
-            <Boxes size={32} />
+    <div className="grid min-h-screen place-items-center p-4 text-[var(--lo-ink)]">
+      <div className="grid w-full max-w-5xl gap-0 border border-[var(--lo-line)] lg:grid-cols-[1.1fr_0.9fr]">
+        <section className="lo-panel border-0 p-8 sm:p-10">
+          <div className="mb-6 grid size-12 place-items-center border border-[var(--lo-ink)] bg-[var(--lo-ink)] text-[var(--lo-panel-2)]">
+            <Boxes size={22} />
           </div>
-          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-cyan-200">Portfolio star project</p>
-          <h1 className="text-5xl font-black tracking-tight text-white md:text-7xl">LaunchOps Control Tower</h1>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
-            Full-stack SaaS command center with realtime operations, RBAC, audit trails, feature flags, deployment tracking and operational intelligence.
+          <p className="lo-mono text-[0.7rem] uppercase tracking-[0.18em] text-[var(--lo-muted)]">Industrial ops console</p>
+          <h1 className="mt-3 text-3xl font-semibold tracking-tight sm:text-5xl">LaunchOps Control Tower</h1>
+          <p className="mt-5 max-w-xl text-sm leading-7 text-[var(--lo-muted)] sm:text-base">
+            I built this as a high-density operations surface: deployments, incidents, flags and audit events with JWT roles and org scoping — designed to read like a plant console, not a marketing site.
           </p>
-          <div className="mt-8 grid gap-3 sm:grid-cols-3">
-            {['Realtime Socket.IO', 'JWT + RBAC', 'MySQL + Sequelize'].map((item) => (
-              <div key={item} className="rounded-2xl border border-slate-700 bg-slate-950/50 p-4 text-sm font-semibold text-slate-200">{item}</div>
+          <dl className="mt-8 grid gap-3 sm:grid-cols-3">
+            {[
+              ['Auth', 'JWT + RBAC'],
+              ['Realtime', 'Socket.IO pulse'],
+              ['Data', 'MySQL + Sequelize']
+            ].map(([label, value]) => (
+              <div key={label} className="lo-panel-flat p-3">
+                <dt className="lo-mono text-[0.65rem] uppercase tracking-[0.12em] text-[var(--lo-muted)]">{label}</dt>
+                <dd className="mt-1 text-sm font-medium">{value}</dd>
+              </div>
             ))}
-          </div>
-        </div>
+          </dl>
+        </section>
 
-        <Card>
+        <Card className="border-0 border-l border-[var(--lo-line)] lg:rounded-none">
           <div className="mb-6 flex items-center gap-3">
-            <div className="grid size-12 place-items-center rounded-2xl bg-slate-800 text-cyan-300"><LockKeyhole size={22} /></div>
+            <div className="grid size-10 place-items-center border border-[var(--lo-line)] bg-[var(--lo-panel-2)]">
+              <LockKeyhole size={18} />
+            </div>
             <div>
-              <h2 className="text-2xl font-bold text-white">Sign in</h2>
-              <p className="text-sm text-slate-400">Use a seeded demo account.</p>
+              <h2 className="text-xl font-semibold">Operator sign-in</h2>
+              <p className="text-sm text-[var(--lo-muted)]">Use a seeded demo account.</p>
             </div>
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4">
             <Input label="Email" type="email" {...register('email')} />
             <Input label="Password" type="password" {...register('password')} />
-            {loginMutation.error && <p className="rounded-2xl border border-rose-400/20 bg-rose-500/10 p-3 text-sm text-rose-200">{loginMutation.error.message}</p>}
-            <Button disabled={loginMutation.isPending}>{loginMutation.isPending ? 'Signing in...' : 'Enter control tower'}</Button>
+            {loginMutation.error && (
+              <p className="border border-[var(--lo-danger)] bg-[#fef3f2] p-3 text-sm text-[var(--lo-danger)]">
+                {loginMutation.error.message}
+              </p>
+            )}
+            <Button disabled={loginMutation.isPending}>
+              {loginMutation.isPending ? 'Authenticating...' : 'Enter control tower'}
+            </Button>
           </form>
 
-          <p className="mt-5 text-xs text-slate-500">Demo password for all seeded users: {DEMO_PASSWORD}</p>
-          <div className="mt-3 grid gap-2 text-sm text-slate-400">
+          <p className="lo-mono mt-5 text-[0.7rem] uppercase tracking-[0.08em] text-[var(--lo-muted)]">
+            Demo password: {DEMO_PASSWORD}
+          </p>
+          <div className="mt-3 grid gap-2">
             {[
               ['Admin', 'admin@launchops.dev'],
               ['Engineer', 'engineer@launchops.dev'],
@@ -76,14 +93,15 @@ export function LoginScreen() {
                   setValue('email', email);
                   setValue('password', DEMO_PASSWORD);
                 }}
-                className="rounded-2xl border border-slate-800 bg-slate-950/40 px-4 py-3 text-left transition hover:border-cyan-400 hover:text-cyan-200"
+                className="lo-panel-flat px-3 py-2 text-left text-sm transition hover:border-[var(--lo-ink)]"
               >
-                {role}: {email}
+                <span className="lo-mono text-[0.65rem] uppercase tracking-[0.1em] text-[var(--lo-muted)]">{role}</span>
+                <span className="mt-0.5 block">{email}</span>
               </button>
             ))}
           </div>
           {import.meta.env.VITE_USE_DEMO === 'true' ? (
-            <p className="mt-4 rounded-2xl border border-cyan-400/20 bg-cyan-500/10 p-3 text-xs text-cyan-100">
+            <p className="mt-4 border border-[var(--lo-info)] bg-[#eff8ff] p-3 text-xs text-[var(--lo-info)]">
               Public demo mode is on — sample data runs in the browser without a live API.
             </p>
           ) : null}

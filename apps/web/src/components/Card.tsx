@@ -4,5 +4,5 @@ type CardProps = {
 };
 
 export function Card({ children, className = '' }: CardProps) {
-  return <section className={`glass-panel rounded-3xl p-5 ${className}`}>{children}</section>;
+  return <section className={`lo-panel rounded-none p-4 ${className}`}>{children}</section>;
 }

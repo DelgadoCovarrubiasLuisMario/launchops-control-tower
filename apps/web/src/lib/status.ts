@@ -1,14 +1,14 @@
 export const deploymentStatusStyles = {
-  queued: 'text-slate-300 bg-slate-500/10 border-slate-500/20',
-  running: 'text-cyan-200 bg-cyan-500/10 border-cyan-500/20',
-  success: 'text-emerald-200 bg-emerald-500/10 border-emerald-500/20',
-  failed: 'text-rose-200 bg-rose-500/10 border-rose-500/20',
-  rolled_back: 'text-amber-200 bg-amber-500/10 border-amber-500/20'
+  queued: 'text-[var(--lo-muted)] bg-[var(--lo-panel-2)] border-[var(--lo-line)]',
+  running: 'text-[var(--lo-info)] bg-[#eff8ff] border-[var(--lo-info)]',
+  success: 'text-[var(--lo-ok)] bg-[#ecfdf3] border-[var(--lo-ok)]',
+  failed: 'text-[var(--lo-danger)] bg-[#fef3f2] border-[var(--lo-danger)]',
+  rolled_back: 'text-[var(--lo-warn)] bg-[#fffaeb] border-[var(--lo-warn)]'
 };
 
 export const severityStyles = {
-  low: 'text-slate-200 bg-slate-500/10 border-slate-500/20',
-  medium: 'text-amber-200 bg-amber-500/10 border-amber-500/20',
-  high: 'text-orange-200 bg-orange-500/10 border-orange-500/20',
-  critical: 'text-rose-200 bg-rose-500/10 border-rose-500/20'
+  low: 'text-[var(--lo-muted)] bg-[var(--lo-panel-2)] border-[var(--lo-line)]',
+  medium: 'text-[var(--lo-warn)] bg-[#fffaeb] border-[var(--lo-warn)]',
+  high: 'text-[#b54708] bg-[#fffaeb] border-[#b54708]',
+  critical: 'text-[var(--lo-danger)] bg-[#fef3f2] border-[var(--lo-danger)]'
 };

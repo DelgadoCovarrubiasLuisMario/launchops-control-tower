@@ -13,11 +13,17 @@ export function KpiCard({ metric }: KpiCardProps) {
     <Card>
       <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="text-sm text-slate-400">{metric.label}</p>
-          <p className="mt-3 text-3xl font-bold tracking-tight text-white">{compactNumber(metric.value, metric.unit)}</p>
+          <p className="lo-mono text-[0.7rem] uppercase tracking-[0.1em] text-[var(--lo-muted)]">{metric.label}</p>
+          <p className="mt-2 text-3xl font-semibold tracking-tight">{compactNumber(metric.value, metric.unit)}</p>
         </div>
-        <span className={`flex items-center gap-1 rounded-full px-2 py-1 text-xs ${positive ? 'bg-emerald-500/10 text-emerald-200' : 'bg-rose-500/10 text-rose-200'}`}>
-          {positive ? <ArrowUpRight size={14} /> : <ArrowDownRight size={14} />}
+        <span
+          className={`lo-mono inline-flex items-center gap-1 border px-2 py-1 text-[0.7rem] uppercase tracking-[0.06em] ${
+            positive
+              ? 'border-[var(--lo-ok)] bg-[#ecfdf3] text-[var(--lo-ok)]'
+              : 'border-[var(--lo-danger)] bg-[#fef3f2] text-[var(--lo-danger)]'
+          }`}
+        >
+          {positive ? <ArrowUpRight size={12} /> : <ArrowDownRight size={12} />}
           {Math.abs(metric.trend)}%
         </span>
       </div>

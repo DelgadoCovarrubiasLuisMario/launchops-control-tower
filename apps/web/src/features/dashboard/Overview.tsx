@@ -28,87 +28,86 @@ export function Overview({ data, pulse, connected }: OverviewProps) {
       ];
 
   return (
-    <div className="grid gap-5">
-      <header className="glass-panel overflow-hidden rounded-[2rem] p-6 md:p-8">
-        <div className="grid gap-6 lg:grid-cols-[1fr_360px] lg:items-center">
+    <div className="grid gap-4">
+      <header className="lo-panel p-4 sm:p-5">
+        <div className="grid gap-5 lg:grid-cols-[1fr_280px] lg:items-start">
           <div>
-            <div className="mb-4 flex flex-wrap items-center gap-3">
-              <Badge className="border-cyan-400/30 bg-cyan-400/10 text-cyan-200">Realtime SaaS Ops</Badge>
-              <span className={`inline-flex items-center gap-2 text-sm ${connected ? 'text-emerald-300' : 'text-amber-300'}`}>
-                <span className="status-dot size-2 rounded-full bg-current" />
-                {connected ? 'Socket connected' : 'Socket reconnecting'}
+            <div className="mb-3 flex flex-wrap items-center gap-3">
+              <Badge className="rounded-none border-[var(--lo-line)] bg-[var(--lo-panel-2)] text-[var(--lo-ink)]">Ops floor</Badge>
+              <span className={`lo-mono inline-flex items-center gap-2 text-xs uppercase tracking-[0.08em] ${connected ? 'text-[var(--lo-ok)]' : 'text-[var(--lo-warn)]'}`}>
+                <span className="size-2 rounded-none bg-current" />
+                {connected ? 'Socket linked' : 'Socket retry'}
               </span>
             </div>
-            <h2 className="max-w-3xl text-4xl font-black tracking-tight text-white md:text-6xl">
-              Engineering command center for deployments, incidents and release risk.
+            <h2 className="max-w-3xl text-2xl font-semibold tracking-tight sm:text-4xl">
+              Deployment, incident and flag telemetry in one operator surface.
             </h2>
-            <p className="mt-5 max-w-2xl text-base leading-7 text-slate-300">
-              Built as a portfolio-grade product with RBAC, audit logs, feature flags, deployment intelligence, realtime pulses and secure API boundaries.
+            <p className="mt-3 max-w-2xl text-sm leading-6 text-[var(--lo-muted)]">
+              Dense layout on purpose: color is reserved for status, not decoration. RBAC, audit trails and org-scoped APIs stay in the same console.
             </p>
           </div>
           <motion.div
-            initial={{ opacity: 0, y: 18 }}
+            initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            className="rounded-[2rem] border border-cyan-400/20 bg-cyan-400/10 p-5"
+            className="lo-panel-flat grid grid-cols-2 gap-3 p-3"
           >
-            <p className="text-sm text-cyan-100">Operational summary</p>
-            <div className="mt-5 grid grid-cols-2 gap-4">
-              <div>
-                <p className="text-3xl font-bold text-white">{data.summary.deploymentSuccessRate}%</p>
-                <p className="text-xs text-slate-400">deploy success</p>
-              </div>
-              <div>
-                <p className="text-3xl font-bold text-white">{data.summary.criticalIncidents}</p>
-                <p className="text-xs text-slate-400">active risks</p>
-              </div>
-              <div>
-                <p className="text-3xl font-bold text-white">{data.summary.runningDeployments}</p>
-                <p className="text-xs text-slate-400">running deploys</p>
-              </div>
-              <div>
-                <p className="text-3xl font-bold text-white">{data.summary.enabledFlags}</p>
-                <p className="text-xs text-slate-400">enabled flags</p>
-              </div>
+            <div>
+              <p className="lo-mono text-[0.65rem] uppercase tracking-[0.1em] text-[var(--lo-muted)]">Success</p>
+              <p className="mt-1 text-2xl font-semibold">{data.summary.deploymentSuccessRate}%</p>
+            </div>
+            <div>
+              <p className="lo-mono text-[0.65rem] uppercase tracking-[0.1em] text-[var(--lo-muted)]">Risks</p>
+              <p className="mt-1 text-2xl font-semibold">{data.summary.criticalIncidents}</p>
+            </div>
+            <div>
+              <p className="lo-mono text-[0.65rem] uppercase tracking-[0.1em] text-[var(--lo-muted)]">Running</p>
+              <p className="mt-1 text-2xl font-semibold">{data.summary.runningDeployments}</p>
+            </div>
+            <div>
+              <p className="lo-mono text-[0.65rem] uppercase tracking-[0.1em] text-[var(--lo-muted)]">Flags on</p>
+              <p className="mt-1 text-2xl font-semibold">{data.summary.enabledFlags}</p>
             </div>
           </motion.div>
         </div>
       </header>
 
-      <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-        {metrics.map((metric) => <KpiCard key={metric.key} metric={metric} />)}
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        {metrics.map((metric) => (
+          <KpiCard key={metric.key} metric={metric} />
+        ))}
       </div>
 
-      <div className="grid gap-5 xl:grid-cols-[1.2fr_0.8fr]">
+      <div className="grid gap-4 xl:grid-cols-[1.2fr_0.8fr]">
         <Card>
-          <div className="mb-6 flex items-center justify-between">
-            <div>
-              <h3 className="text-xl font-bold text-white">Release rhythm</h3>
-              <p className="text-sm text-slate-400">Deploys vs incidents this week</p>
-            </div>
+          <div className="mb-4">
+            <h3 className="text-lg font-semibold">Release rhythm</h3>
+            <p className="lo-mono text-[0.7rem] uppercase tracking-[0.08em] text-[var(--lo-muted)]">Deploys vs incidents</p>
           </div>
           <div className="h-72">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={chartData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(148,163,184,.16)" />
-                <XAxis dataKey="day" stroke="#94a3b8" />
-                <YAxis stroke="#94a3b8" />
-                <Tooltip contentStyle={{ background: '#020617', border: '1px solid #334155', borderRadius: 16 }} />
-                <Area type="monotone" dataKey="deploys" stroke="#22d3ee" fill="#22d3ee" fillOpacity={0.16} />
-                <Area type="monotone" dataKey="incidents" stroke="#fb7185" fill="#fb7185" fillOpacity={0.14} />
+                <CartesianGrid strokeDasharray="2 4" stroke="#b7c0cc" />
+                <XAxis dataKey="day" stroke="#5b6575" />
+                <YAxis stroke="#5b6575" />
+                <Tooltip contentStyle={{ background: '#f7f8fa', border: '1px solid #b7c0cc', borderRadius: 0 }} />
+                <Area type="monotone" dataKey="deploys" stroke="#175cd3" fill="#175cd3" fillOpacity={0.12} />
+                <Area type="monotone" dataKey="incidents" stroke="#b42318" fill="#b42318" fillOpacity={0.1} />
               </AreaChart>
             </ResponsiveContainer>
           </div>
         </Card>
 
         <Card>
-          <h3 className="text-xl font-bold text-white">Latest production signal</h3>
-          <div className="mt-5 grid gap-4">
+          <h3 className="text-lg font-semibold">Latest production signal</h3>
+          <div className="mt-4 grid gap-2">
             {data.deployments.slice(0, 4).map((deployment) => (
-              <div key={deployment.id} className="rounded-2xl border border-slate-800 bg-slate-950/50 p-4">
+              <div key={deployment.id} className="lo-panel-flat p-3">
                 <div className="flex items-center justify-between gap-3">
                   <div>
-                    <p className="font-semibold text-white">{deployment.service}</p>
-                    <p className="text-xs text-slate-500">{deployment.version} · {deployment.commitSha} · {formatDuration(deployment.durationMs)}</p>
+                    <p className="font-medium">{deployment.service}</p>
+                    <p className="lo-mono text-[0.7rem] text-[var(--lo-muted)]">
+                      {deployment.version} · {deployment.commitSha} · {formatDuration(deployment.durationMs)}
+                    </p>
                   </div>
                   <Badge className={deploymentStatusStyles[deployment.status]}>{deployment.status}</Badge>
                 </div>
@@ -119,21 +118,21 @@ export function Overview({ data, pulse, connected }: OverviewProps) {
       </div>
 
       <Card>
-        <div className="mb-5 flex items-center justify-between">
-          <div>
-            <h3 className="text-xl font-bold text-white">Incident radar</h3>
-            <p className="text-sm text-slate-400">Open risk with service ownership</p>
-          </div>
+        <div className="mb-4">
+          <h3 className="text-lg font-semibold">Incident radar</h3>
+          <p className="lo-mono text-[0.7rem] uppercase tracking-[0.08em] text-[var(--lo-muted)]">Open risk by service</p>
         </div>
-        <div className="grid gap-3 lg:grid-cols-2">
+        <div className="grid gap-2 lg:grid-cols-2">
           {data.incidents.map((incident) => (
-            <div key={incident.id} className="rounded-2xl border border-slate-800 bg-slate-950/50 p-4">
+            <div key={incident.id} className="lo-panel-flat p-3">
               <div className="flex flex-wrap items-center justify-between gap-3">
-                <p className="font-semibold text-white">{incident.title}</p>
+                <p className="font-medium">{incident.title}</p>
                 <Badge className={severityStyles[incident.severity]}>{incident.severity}</Badge>
               </div>
-              <p className="mt-2 text-sm leading-6 text-slate-400">{incident.summary}</p>
-              <p className="mt-3 text-xs text-slate-500">{incident.service} · {incident.status} · {formatDate(incident.createdAt)}</p>
+              <p className="mt-2 text-sm leading-6 text-[var(--lo-muted)]">{incident.summary}</p>
+              <p className="lo-mono mt-3 text-[0.7rem] text-[var(--lo-muted)]">
+                {incident.service} · {incident.status} · {formatDate(incident.createdAt)}
+              </p>
             </div>
           ))}
         </div>

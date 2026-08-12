@@ -30,62 +30,62 @@ export function Shell({ activeView, onViewChange, children }: ShellProps) {
   );
 
   return (
-    <div className="min-h-screen p-4 text-slate-100 md:p-6">
+    <div className="min-h-screen text-[var(--lo-ink)]">
       <CommandPalette open={commandOpen} onOpenChange={setCommandOpen} onNavigate={onViewChange} />
 
-      <div className="mx-auto grid max-w-7xl gap-5 lg:grid-cols-[280px_1fr]">
-        <aside className="glass-panel flex flex-col rounded-[2rem] p-5 lg:sticky lg:top-6 lg:h-[calc(100vh-3rem)]">
-          <div className="mb-8 flex items-center gap-3">
-            <div className="grid size-12 place-items-center rounded-2xl bg-cyan-400 text-slate-950 shadow-lg shadow-cyan-500/20">
-              <Boxes size={24} />
+      <header className="lo-panel sticky top-0 z-20 border-x-0 border-t-0">
+        <div className="mx-auto flex max-w-[1400px] flex-wrap items-center justify-between gap-3 px-3 py-2.5 sm:px-4">
+          <div className="flex items-center gap-3">
+            <div className="grid size-9 place-items-center border border-[var(--lo-ink)] bg-[var(--lo-ink)] text-[var(--lo-panel-2)]">
+              <Boxes size={18} />
             </div>
             <div>
-              <p className="text-sm text-cyan-200">LaunchOps</p>
-              <h1 className="text-xl font-bold tracking-tight">Control Tower</h1>
+              <p className="lo-mono text-[0.65rem] uppercase tracking-[0.16em] text-[var(--lo-muted)]">LaunchOps · Ops Console</p>
+              <h1 className="text-base font-semibold tracking-tight sm:text-lg">Control Tower</h1>
             </div>
           </div>
 
-          <button
-            onClick={() => setCommandOpen(true)}
-            className="mb-5 flex w-full items-center justify-between rounded-2xl border border-slate-700 bg-slate-950/60 px-4 py-3 text-sm text-slate-400 transition hover:border-cyan-400 hover:text-slate-100"
-          >
-            <span className="flex items-center gap-2"><Command size={16} /> Search actions</span>
-            <kbd className="rounded-lg border border-slate-700 px-2 py-0.5 text-xs">⌘K</kbd>
-          </button>
-
-          <nav className="grid gap-2">
-            {navItems.map((item) => {
-              const Icon = item.icon;
-              const active = activeView === item.id;
-              return (
-                <button
-                  key={item.id}
-                  onClick={() => onViewChange(item.id)}
-                  className={`flex items-center gap-3 rounded-2xl px-4 py-3 text-left text-sm font-medium transition ${
-                    active ? 'bg-cyan-400 text-slate-950' : 'text-slate-300 hover:bg-slate-800/80 hover:text-white'
-                  }`}
-                >
-                  <Icon size={18} />
-                  {item.label}
-                </button>
-              );
-            })}
-          </nav>
-
-          <div className="mt-auto pt-8">
-            <div className="rounded-3xl border border-slate-700 bg-slate-950/60 p-4">
-              <p className="text-sm font-semibold">{user?.name}</p>
-              <p className="text-xs text-slate-400">{user?.email}</p>
-              <p className="mt-2 inline-flex rounded-full bg-cyan-400/10 px-2 py-1 text-xs text-cyan-200">{user?.role}</p>
+          <div className="flex flex-wrap items-center gap-2">
+            <button
+              onClick={() => setCommandOpen(true)}
+              className="lo-mono inline-flex items-center gap-2 border border-[var(--lo-line)] bg-[var(--lo-panel-2)] px-3 py-2 text-[0.7rem] uppercase tracking-[0.08em] text-[var(--lo-muted)]"
+            >
+              <Command size={14} /> Search <kbd className="border border-[var(--lo-line)] px-1">⌘K</kbd>
+            </button>
+            <div className="lo-panel-flat hidden px-3 py-2 text-xs sm:block">
+              <span className="lo-mono uppercase tracking-[0.08em] text-[var(--lo-muted)]">{user?.role}</span>
+              <span className="mx-2 text-[var(--lo-line)]">|</span>
+              <span>{user?.name}</span>
             </div>
-            <Button onClick={logout} variant="ghost" className="mt-3 w-full">
-              <LogOut size={16} /> Logout
+            <Button onClick={logout} variant="ghost">
+              <LogOut size={14} /> Logout
             </Button>
           </div>
-        </aside>
+        </div>
 
-        <main className="min-w-0">{children}</main>
-      </div>
+        <nav className="mx-auto flex max-w-[1400px] gap-0 overflow-x-auto border-t border-[var(--lo-line)] px-1 sm:px-2" aria-label="Views">
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            const active = activeView === item.id;
+            return (
+              <button
+                key={item.id}
+                onClick={() => onViewChange(item.id)}
+                className={`lo-mono inline-flex shrink-0 items-center gap-2 border-b-2 px-3 py-2.5 text-[0.7rem] uppercase tracking-[0.1em] transition sm:px-4 ${
+                  active
+                    ? 'border-[var(--lo-ink)] text-[var(--lo-ink)]'
+                    : 'border-transparent text-[var(--lo-muted)] hover:text-[var(--lo-ink)]'
+                }`}
+              >
+                <Icon size={14} />
+                {item.label}
+              </button>
+            );
+          })}
+        </nav>
+      </header>
+
+      <main className="mx-auto max-w-[1400px] px-3 py-4 sm:px-4 sm:py-5">{children}</main>
     </div>
   );
 }

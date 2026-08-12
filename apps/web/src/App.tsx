@@ -36,7 +36,7 @@ export function App() {
   }
 
   if (overviewQuery.isLoading) {
-    return <div className="grid min-h-screen place-items-center text-slate-300">Loading LaunchOps...</div>;
+    return <div className="lo-mono grid min-h-screen place-items-center text-[var(--lo-muted)]">Loading LaunchOps...</div>;
   }
 
   if (overviewQuery.isError || !overviewQuery.data) {
@@ -48,8 +48,8 @@ export function App() {
     return (
       <div className="grid min-h-screen place-items-center gap-4 p-6 text-center">
         <div>
-          <p className="text-rose-200">{message}</p>
-          <p className="mt-2 text-sm text-slate-400">Check that the API is running, then sign in again.</p>
+          <p className="text-[var(--lo-danger)]">{message}</p>
+          <p className="mt-2 text-sm text-[var(--lo-muted)]">Check that the API is running, then sign in again.</p>
         </div>
         <div className="flex gap-3">
           <Button onClick={() => void overviewQuery.refetch()}>Retry</Button>
