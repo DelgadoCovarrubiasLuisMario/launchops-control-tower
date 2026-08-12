@@ -74,7 +74,7 @@ export function LoginScreen() {
                 type="button"
                 onClick={() => {
                   setValue('email', email);
-                  setValue('password', '');
+                  setValue('password', DEMO_PASSWORD);
                 }}
                 className="rounded-2xl border border-slate-800 bg-slate-950/40 px-4 py-3 text-left transition hover:border-cyan-400 hover:text-cyan-200"
               >
@@ -82,6 +82,11 @@ export function LoginScreen() {
               </button>
             ))}
           </div>
+          {import.meta.env.VITE_USE_DEMO === 'true' ? (
+            <p className="mt-4 rounded-2xl border border-cyan-400/20 bg-cyan-500/10 p-3 text-xs text-cyan-100">
+              Public demo mode is on — sample data runs in the browser without a live API.
+            </p>
+          ) : null}
         </Card>
       </div>
     </div>

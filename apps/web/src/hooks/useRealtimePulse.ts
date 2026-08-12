@@ -5,6 +5,8 @@ import type { PulsePayload } from '../lib/types';
 
 const SOCKET_URL = import.meta.env.VITE_SOCKET_URL ?? 'http://localhost:4000';
 
+const useDemo = import.meta.env.VITE_USE_DEMO === 'true';
+
 export function useRealtimePulse(enabled: boolean) {
   const token = useAuthStore((state) => state.token);
   const [pulse, setPulse] = useState<PulsePayload | null>(null);
@@ -14,6 +16,15 @@ export function useRealtimePulse(enabled: boolean) {
     if (!enabled || !token) {
       setConnected(false);
       setPulse(null);
+      return;
+    }
+
+    if (useDemo) {
+      setConnected(true);
+      setPulse({
+        at: new Date().toISOString(),
+        metrics: []
+      });
       return;
     }
 
