@@ -1,0 +1,60 @@
+@baseUrl = http://localhost:4000/api
+@token = paste_token_here
+
+### Health
+GET {{baseUrl}}/health
+
+### Login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@launchops.dev",
+  "password": "password123"
+}
+
+### Overview
+GET {{baseUrl}}/dashboard/overview
+Authorization: Bearer {{token}}
+
+### Deployments
+GET {{baseUrl}}/deployments
+Authorization: Bearer {{token}}
+
+### Queue deployment
+POST {{baseUrl}}/deployments
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "service": "web-dashboard",
+  "version": "v2.9.0",
+  "environment": "staging",
+  "commitSha": "a7c91f2",
+  "owner": "Luis Mario"
+}
+
+### Update deployment status
+PATCH {{baseUrl}}/deployments/1/status
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "status": "success"
+}
+
+### Incidents
+GET {{baseUrl}}/incidents
+Authorization: Bearer {{token}}
+
+### Feature flags
+GET {{baseUrl}}/flags
+Authorization: Bearer {{token}}
+
+### Toggle flag
+PATCH {{baseUrl}}/flags/1/toggle
+Authorization: Bearer {{token}}
+
+### Audit trail
+GET {{baseUrl}}/audit
+Authorization: Bearer {{token}}

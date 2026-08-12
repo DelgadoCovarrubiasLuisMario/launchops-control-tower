@@ -1,0 +1,25 @@
+{
+  "name": "launchops-control-tower",
+  "private": true,
+  "version": "1.0.0",
+  "description": "A portfolio-grade full-stack SaaS command center with realtime operations, RBAC, audit trails, feature flags and deployment intelligence.",
+  "workspaces": [
+    "apps/api",
+    "apps/web"
+  ],
+  "scripts": {
+    "dev": "npm-run-all --parallel dev:*",
+    "dev:api": "npm run dev -w apps/api",
+    "dev:web": "npm run dev -w apps/web",
+    "build": "npm run build -w apps/api && npm run build -w apps/web",
+    "lint": "npm run lint -w apps/api && npm run lint -w apps/web",
+    "typecheck": "npm run typecheck -w apps/api && npm run typecheck -w apps/web",
+    "seed": "npm run db:seed -w apps/api"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
